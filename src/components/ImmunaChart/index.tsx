@@ -64,6 +64,7 @@ export function ImmunaChart({ className }: { className?: string }) {
         <YAxis
           domain={[minPrice, maxPrice]}
           tickFormatter={yAxisTickFormatter}
+          orientation="right"
         />
         <Tooltip />
         <defs>
