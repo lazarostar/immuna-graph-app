@@ -19,7 +19,7 @@ export function RangeSelect({
   return (
     <Container>
       {options.map((option) => (
-        <Item active={value === option} onClick={() => setValue(option)}>
+        <Item key={option} active={value === option} onClick={() => setValue(option)}>
           {option}
         </Item>
       ))}
