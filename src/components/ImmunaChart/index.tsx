@@ -17,6 +17,8 @@ import { useChartData } from "../../hooks/useChartData";
 import { colors } from "./colors";
 import { generateYAxisTicks } from "./utils";
 import { RangeOption } from "./eunms";
+import { CustomizedTooltip } from "./components/CustomizedTooltip";
+import { CustomizedDot } from "./components/CustomizedDot";
 
 export function ImmunaChart({
   range = RangeOption["7D"],
@@ -79,15 +81,6 @@ export function ImmunaChart({
     openPrice
   );
 
-  const CustomizedDot = (props: any) => {
-    const { cx, cy, payload } = props;
-    const fill = payload.p > openPrice ? colors.positive : colors.negative;
-
-    return (
-      <Dot cx={cx} cy={cy} r={5} fill={fill} stroke="#fff" strokeWidth={2} />
-    );
-  };
-
   return (
     <div>
       <ResponsiveContainer width="100%" height={300} className={className}>
@@ -131,7 +124,7 @@ export function ImmunaChart({
             strokeWidth={1}
             strokeDasharray="1 3"
           />
-          <Tooltip />
+          <Tooltip content={<CustomizedTooltip />} />
           <defs>
             <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
               <stop
@@ -161,7 +154,7 @@ export function ImmunaChart({
             strokeLinecap="butt"
             baseValue={openPrice}
             baseLine={1}
-            activeDot={<CustomizedDot />}
+            activeDot={<CustomizedDot openPrice={openPrice} />}
           />
           <Brush
             dataKey="t"
