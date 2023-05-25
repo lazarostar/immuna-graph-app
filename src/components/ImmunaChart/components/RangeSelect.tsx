@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../colors";
 import { RangeOption } from "../eunms";
 
 const options = [
@@ -19,7 +20,11 @@ export function RangeSelect({
   return (
     <Container>
       {options.map((option) => (
-        <Item key={option} active={value === option} onClick={() => setValue(option)}>
+        <Item
+          key={option}
+          active={value === option}
+          onClick={() => setValue(option)}
+        >
           {option}
         </Item>
       ))}
@@ -30,7 +35,7 @@ export function RangeSelect({
 const Container = styled.ul({
   display: "inline-flex",
   listStyle: "none",
-  backgroundColor: "#ddd",
+  backgroundColor: colors.lightGrey2,
   borderRadius: 4,
   margin: 0,
   padding: "8px",

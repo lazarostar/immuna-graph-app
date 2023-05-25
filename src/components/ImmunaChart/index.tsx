@@ -16,13 +16,12 @@ import {
 import { useChartData } from "../../hooks/useChartData";
 import { colors } from "./colors";
 import { CustomizedDot } from "./components/CustomizedDot";
+import { CustomizedLabel } from "./components/CustomizedLabel";
 import { CustomizedTooltip } from "./components/CustomizedTooltip";
+import { CustomizedTraveller } from "./components/CustomizedTraveller";
 import { Loader } from "./components/Loader";
 import { RangeOption } from "./eunms";
 import { generateYAxisTicks } from "./utils";
-import { CustomizedLabel } from "./components/CustomizedLabel";
-import { CustomizedBrush } from "./components/CustomizedBrush";
-import { CustomizedTraveller } from "./components/CustomizedTraveller";
 
 export function ImmunaChart({
   currency = 1,
@@ -104,10 +103,10 @@ export function ImmunaChart({
         >
           <XAxis
             dataKey="t"
-            stroke={colors.axis}
+            stroke={colors.lightGrey2}
             tickFormatter={xAxisTickFormatter}
             tick={{
-              fill: colors.tickLabel,
+              fill: colors.darkGrey3,
               fontSize: 10,
               fontWeight: 700,
               spacing: 10,
@@ -116,9 +115,9 @@ export function ImmunaChart({
           <YAxis
             yAxisId="areaAxis"
             domain={[minPrice, maxPrice]}
-            stroke={colors.axis}
+            stroke={colors.lightGrey2}
             tick={{
-              fill: colors.tickLabel,
+              fill: colors.darkGrey3,
               fontSize: 10,
               fontWeight: 700,
             }}
@@ -131,7 +130,7 @@ export function ImmunaChart({
           <YAxis
             yAxisId="barAxis"
             domain={[0, maxVolume * 10]}
-            stroke={colors.axis}
+            stroke={colors.lightGrey2}
             orientation="right"
             hide={true}
           />
@@ -155,7 +154,7 @@ export function ImmunaChart({
               <stop offset={off} stopColor={colors.negative} stopOpacity={1} />
             </linearGradient>
           </defs>
-          <CartesianGrid stroke={colors.grid} vertical={false} />
+          <CartesianGrid stroke={colors.lightGrey} vertical={false} />
           <Area
             yAxisId="areaAxis"
             type="linear"
@@ -168,7 +167,12 @@ export function ImmunaChart({
             baseLine={1}
             activeDot={<CustomizedDot openPrice={openPrice} />}
           />
-          <Bar dataKey="c" fill="#aaa" yAxisId="barAxis" height={30} />
+          <Bar
+            dataKey="c"
+            fill={colors.lightGrey3}
+            yAxisId="barAxis"
+            height={30}
+          />
           <ReferenceLine
             yAxisId="areaAxis"
             y={openPrice}
@@ -180,15 +184,20 @@ export function ImmunaChart({
           <Brush
             dataKey="t"
             height={30}
-            stroke="#666"
-            fill="#fff"
+            stroke={colors.darkGrey2}
+            fill={colors.white}
             onChange={handleBrushChange}
             traveller={<CustomizedTraveller />}
             travellerWidth={0}
             tickFormatter={() => ""}
           >
             <AreaChart>
-              <Area type="monotone" dataKey="p" stroke="#ddd" fill="#ddd" />
+              <Area
+                type="monotone"
+                dataKey="p"
+                stroke={colors.lightGrey2}
+                fill={colors.lightGrey2}
+              />
               <YAxis domain={["auto", "auto"]} hide={true} />
             </AreaChart>
           </Brush>

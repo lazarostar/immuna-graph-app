@@ -6,6 +6,13 @@ export function CustomizedDot(props: any) {
   const fill = payload.p > openPrice ? colors.positive : colors.negative;
 
   return (
-    <Dot cx={cx} cy={cy} r={5} fill={fill} stroke="#fff" strokeWidth={2} />
+    <Dot
+      cx={cx}
+      cy={cy}
+      r={5}
+      fill={fill}
+      stroke={colors.white}
+      strokeWidth={2}
+    />
   );
 }

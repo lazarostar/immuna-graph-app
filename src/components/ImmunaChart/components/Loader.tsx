@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import React from "react";
 import * as Spinner from "react-loader-spinner";
+import styled from "styled-components";
+import { colors } from "../colors";
 
 export function Loader() {
   return (
     <Container>
-      <Spinner.RotatingLines width="24px" strokeColor="#555" />
+      <Spinner.RotatingLines width="24px" strokeColor={colors.darkGrey} />
       <LoadingLabel>Loading Data...</LoadingLabel>
       <WaitLabel>Please wait a moment.</WaitLabel>
     </Container>
@@ -27,5 +27,5 @@ const LoadingLabel = styled.div({
 
 const WaitLabel = styled.div({
   fontSize: 14,
-  color: "#555",
+  color: colors.darkGrey,
 });

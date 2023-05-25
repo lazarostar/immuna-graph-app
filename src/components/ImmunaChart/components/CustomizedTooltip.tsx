@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import * as DateFns from "date-fns";
+import { colors } from "../colors";
 
 export function CustomizedTooltip(props: any) {
   const { active, payload } = props;
@@ -56,7 +57,7 @@ const DateLabel = styled.div({
 });
 
 const TimeLabel = styled.div({
-  color: "#555",
+  color: colors.darkGrey,
 });
 
 const Info = styled.div({
@@ -69,7 +70,7 @@ const InfoItem = styled.div({
   display: "flex",
   alignItems: "center",
   gap: 8,
-  color: "#555",
+  color: colors.darkGrey,
   fontWeight: "bold",
   fontSize: 12,
 });

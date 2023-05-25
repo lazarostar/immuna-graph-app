@@ -5,11 +5,11 @@ export function CustomizedLabel(props: any) {
   console.log(viewBox, value);
   return (
     <svg x={viewBox.x} y={viewBox.y - 10} width={30} height={20}>
-      <rect x="0" y="0" width="30" height="20" fill="#fffa" />
+      <rect x="0" y="0" width="30" height="20" fill={`${colors.white}a`} />
       <text
         x={15}
         y={10}
-        fill={colors.tickLabel}
+        fill={colors.darkGrey3}
         fontSize={10}
         fontWeight={"bold"}
         textAnchor="middle"
