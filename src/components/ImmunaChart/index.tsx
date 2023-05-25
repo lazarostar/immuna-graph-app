@@ -90,7 +90,7 @@ export function ImmunaChart({
 
   return (
     <div>
-      <ResponsiveContainer width="100%" height={300} className={className}>
+      <ResponsiveContainer width="100%" height={400} className={className}>
         <ComposedChart
           data={data}
           margin={{
