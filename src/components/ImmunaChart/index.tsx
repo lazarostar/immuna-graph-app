@@ -59,7 +59,7 @@ export function ImmunaChart({
     return DateFns.format(new Date(value * 1000), "yyyy-MM-dd");
   };
   const yAxisTickFormatter = (value: any, index: number): string => {
-    return Math.round(Number(value)).toLocaleString();
+    return value < 0 ? "" : Math.round(Number(value)).toLocaleString();
   };
 
   const handleBrushChange = ({
@@ -83,6 +83,9 @@ export function ImmunaChart({
     Math.min(...data.slice(startIndex, endIndex + 1).map((item) => item["p"])),
     Math.max(...data.slice(startIndex, endIndex + 1).map((item) => item["p"])),
     openPrice
+  );
+  const maxVolume = Math.max(
+    ...data.slice(startIndex, endIndex + 1).map((item) => item["c"])
   );
 
   return (
@@ -109,6 +112,7 @@ export function ImmunaChart({
             }}
           />
           <YAxis
+            yAxisId="areaAxis"
             domain={[minPrice, maxPrice]}
             stroke={colors.axis}
             tick={{
@@ -121,6 +125,13 @@ export function ImmunaChart({
             tickMargin={5}
             tickFormatter={yAxisTickFormatter}
             orientation="right"
+          />
+          <YAxis
+            yAxisId="barAxis"
+            domain={[0, maxVolume * 10]}
+            stroke={colors.axis}
+            orientation="right"
+            hide={true}
           />
           <Tooltip content={<CustomizedTooltip />} />
           <defs>
@@ -144,6 +155,7 @@ export function ImmunaChart({
           </defs>
           <CartesianGrid stroke={colors.grid} vertical={false} />
           <Area
+            yAxisId="areaAxis"
             type="linear"
             dataKey="p"
             stroke="url(#strokeColor)"
@@ -154,7 +166,9 @@ export function ImmunaChart({
             baseLine={1}
             activeDot={<CustomizedDot openPrice={openPrice} />}
           />
+          <Bar dataKey="c" fill="#aaa" yAxisId="barAxis" height={30} />
           <ReferenceLine
+            yAxisId="areaAxis"
             y={openPrice}
             stroke="grey"
             strokeWidth={1}
