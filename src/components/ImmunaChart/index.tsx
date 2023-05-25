@@ -21,6 +21,7 @@ import { Loader } from "./components/Loader";
 import { RangeOption } from "./eunms";
 import { generateYAxisTicks } from "./utils";
 import { CustomizedLabel } from "./components/CustomizedLabel";
+import { CustomizedBrush } from "./components/CustomizedBrush";
 
 export function ImmunaChart({
   currency = 1,
@@ -178,9 +179,17 @@ export function ImmunaChart({
           <Brush
             dataKey="t"
             height={30}
-            stroke="#8884d8"
+            stroke="#555"
+            fill="#fff"
             onChange={handleBrushChange}
-          />
+            // traveller={<CustomizedTraveller />}
+            tickFormatter={() => ""}
+          >
+            <AreaChart>
+              <Area type="monotone" dataKey="p" stroke="#ccc" fill="#ccc" />
+              <YAxis domain={["auto", "auto"]} hide={true} />
+            </AreaChart>
+          </Brush>
         </ComposedChart>
       </ResponsiveContainer>
     </div>
