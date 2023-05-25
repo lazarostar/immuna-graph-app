@@ -19,8 +19,8 @@ export function ImmunaChart({ className }: { className?: string }) {
   const [startIndex, setStartIndex] = useState(-1);
   const [endIndex, setEndIndex] = useState(-1);
   const { data, isLoading } = useChartData({
-    id: 1027,
-    range: "ALL",
+    id: 1,
+    range: "1Y",
     onSuccess: (data) => {
       setStartIndex((prev) => (prev === -1 ? 0 : prev));
       setEndIndex((prev) => (prev === -1 ? data.length - 1 : prev));
@@ -52,11 +52,12 @@ export function ImmunaChart({ className }: { className?: string }) {
     min: minPrice,
     max: maxPrice,
     ticks: yAxisTicks,
+    off,
   } = generateYAxisTicks(
     Math.min(...data.slice(startIndex, endIndex).map((item) => item["p"])),
-    Math.max(...data.slice(startIndex, endIndex + 1).map((item) => item["p"]))
+    Math.max(...data.slice(startIndex, endIndex).map((item) => item["p"])),
+    openPrice
   );
-  const off = (maxPrice - openPrice) / (maxPrice - minPrice);
 
   return (
     <ResponsiveContainer width="100%" height={300} className={className}>
