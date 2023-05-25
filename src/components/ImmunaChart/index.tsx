@@ -1,4 +1,3 @@
-import * as DateFns from "date-fns";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -21,7 +20,11 @@ import { CustomizedTooltip } from "./components/CustomizedTooltip";
 import { CustomizedTraveller } from "./components/CustomizedTraveller";
 import { Loader } from "./components/Loader";
 import { RangeOption } from "./eunms";
-import { generateYAxisTicks } from "./utils";
+import {
+  generateYAxisTicks,
+  xAxisTickFormatter,
+  yAxisTickFormatter,
+} from "./utils";
 
 export function ImmunaChart({
   currency = 1,
@@ -56,13 +59,6 @@ export function ImmunaChart({
 
   if (isLoading || !data) return <Loader />;
 
-  const xAxisTickFormatter = (value: number, index: number): string => {
-    return DateFns.format(new Date(value * 1000), "yyyy-MM-dd");
-  };
-  const yAxisTickFormatter = (value: any, index: number): string => {
-    return value < 0 ? "" : Math.round(Number(value)).toLocaleString();
-  };
-
   const handleBrushChange = ({
     startIndex,
     endIndex,
@@ -74,17 +70,14 @@ export function ImmunaChart({
     setEndIndex(endIndex || 0);
   };
 
-  const openPrice = data[0]["p"];
   const {
+    open: openPrice,
     min: minPrice,
     max: maxPrice,
     ticks: yAxisTicks,
     off,
-  } = generateYAxisTicks(
-    Math.min(...data.slice(startIndex, endIndex + 1).map((item) => item["p"])),
-    Math.max(...data.slice(startIndex, endIndex + 1).map((item) => item["p"])),
-    openPrice
-  );
+  } = generateYAxisTicks(data, startIndex, endIndex);
+
   const maxVolume = Math.max(
     ...data.slice(startIndex, endIndex + 1).map((item) => item["c"])
   );
