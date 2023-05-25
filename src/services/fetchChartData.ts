@@ -17,7 +17,7 @@ export async function fetchChartData({
   const response = await import(`../mockup/chart/${id}-${range}.json`);
 
   // mockup delay for 1000~2000ms
-  await sleep(Math.random() * 1000 + 500);
+  await sleep(Math.random() * 1000 + 1000);
 
   return response?.data?.points;
 }

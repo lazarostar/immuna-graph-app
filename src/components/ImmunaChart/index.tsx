@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 import {
   Area,
   AreaChart,
@@ -19,6 +20,7 @@ import { generateYAxisTicks } from "./utils";
 import { RangeOption } from "./eunms";
 import { CustomizedTooltip } from "./components/CustomizedTooltip";
 import { CustomizedDot } from "./components/CustomizedDot";
+import { Loader } from "./components/Loader";
 
 export function ImmunaChart({
   currency = 1,
@@ -51,7 +53,7 @@ export function ImmunaChart({
     }
   }, [range, data]);
 
-  if (isLoading || !data) return <div>Loading...</div>;
+  if (isLoading || !data) return <Loader />;
 
   const xAxisTickFormatter = (value: number, index: number): string => {
     return DateFns.format(new Date(value * 1000), "yyyy-MM-dd");
