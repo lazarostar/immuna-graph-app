@@ -4,6 +4,8 @@ import {
   AreaChart,
   Brush,
   CartesianGrid,
+  CustomizedProps,
+  Dot,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
@@ -77,6 +79,15 @@ export function ImmunaChart({
     openPrice
   );
 
+  const CustomizedDot = (props: any) => {
+    const { cx, cy, payload } = props;
+    const fill = payload.p > openPrice ? colors.positive : colors.negative;
+
+    return (
+      <Dot cx={cx} cy={cy} r={5} fill={fill} stroke="#fff" strokeWidth={2} />
+    );
+  };
+
   return (
     <div>
       <ResponsiveContainer width="100%" height={300} className={className}>
@@ -125,19 +136,19 @@ export function ImmunaChart({
             <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
               <stop
                 offset={0}
-                stopColor="#32ce93"
+                stopColor={colors.positive}
                 stopOpacity={Math.max(off, 0.3)}
               />
               <stop offset={off} stopColor="white" stopOpacity={0} />
               <stop
                 offset={1}
-                stopColor="#ea3943"
+                stopColor={colors.negative}
                 stopOpacity={Math.max(1 - off, 0.3)}
               />
             </linearGradient>
             <linearGradient id="strokeColor" x1="0" y1="0" x2="0" y2="1">
-              <stop offset={off} stopColor="#32ce93" stopOpacity={1} />
-              <stop offset={off} stopColor="#ea3943" stopOpacity={1} />
+              <stop offset={off} stopColor={colors.positive} stopOpacity={1} />
+              <stop offset={off} stopColor={colors.negative} stopOpacity={1} />
             </linearGradient>
           </defs>
           <CartesianGrid stroke={colors.grid} vertical={false} />
@@ -150,6 +161,7 @@ export function ImmunaChart({
             strokeLinecap="butt"
             baseValue={openPrice}
             baseLine={1}
+            activeDot={<CustomizedDot />}
           />
           <Brush
             dataKey="t"
