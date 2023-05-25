@@ -9,8 +9,9 @@ export function generateXAxisTicks(min: number, max: number) {
 
 export function generateYAxisTicks(min: number, max: number, open: number) {
   const off = (max - open) / (max - min);
-  max *= 1.1;
-  min *= 0.9;
+  const diff = max - min;
+  max += diff * 0.1;
+  min = Math.max(min - diff * 0.1, 0);
   const tickCount = 4;
   const ticks = [];
   for (let i = 0; i < tickCount; i++) {

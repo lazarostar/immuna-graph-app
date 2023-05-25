@@ -1,5 +1,5 @@
 export const colors = {
   axis: "#ddd",
-  grid: "#ddd",
+  grid: "#eee",
   tickLabel: "#888",
 };
