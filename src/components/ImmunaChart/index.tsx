@@ -1,26 +1,26 @@
+import * as DateFns from "date-fns";
 import { useEffect, useState } from "react";
-import { ThreeDots } from "react-loader-spinner";
 import {
   Area,
   AreaChart,
+  Bar,
   Brush,
   CartesianGrid,
-  CustomizedProps,
-  Dot,
+  ComposedChart,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
-import * as DateFns from "date-fns";
 import { useChartData } from "../../hooks/useChartData";
 import { colors } from "./colors";
-import { generateYAxisTicks } from "./utils";
-import { RangeOption } from "./eunms";
-import { CustomizedTooltip } from "./components/CustomizedTooltip";
 import { CustomizedDot } from "./components/CustomizedDot";
+import { CustomizedTooltip } from "./components/CustomizedTooltip";
 import { Loader } from "./components/Loader";
+import { RangeOption } from "./eunms";
+import { generateYAxisTicks } from "./utils";
+import { CustomizedLabel } from "./components/CustomizedLabel";
 
 export function ImmunaChart({
   currency = 1,
@@ -31,8 +31,8 @@ export function ImmunaChart({
   range?: RangeOption;
   className?: string;
 }) {
-  const [startIndex, setStartIndex] = useState(-1);
-  const [endIndex, setEndIndex] = useState(-1);
+  const [startIndex, setStartIndex] = useState<number>(-1);
+  const [endIndex, setEndIndex] = useState<number>(-1);
 
   const { data, isLoading } = useChartData({
     id: currency,
@@ -88,7 +88,7 @@ export function ImmunaChart({
   return (
     <div>
       <ResponsiveContainer width="100%" height={300} className={className}>
-        <AreaChart
+        <ComposedChart
           data={data}
           margin={{
             top: 0,
@@ -103,7 +103,7 @@ export function ImmunaChart({
             tickFormatter={xAxisTickFormatter}
             tick={{
               fill: colors.tickLabel,
-              fontSize: 12,
+              fontSize: 10,
               fontWeight: 700,
               spacing: 10,
             }}
@@ -113,20 +113,14 @@ export function ImmunaChart({
             stroke={colors.axis}
             tick={{
               fill: colors.tickLabel,
-              fontSize: 12,
+              fontSize: 10,
               fontWeight: 700,
             }}
             ticks={yAxisTicks}
             tickSize={0}
-            tickMargin={10}
+            tickMargin={5}
             tickFormatter={yAxisTickFormatter}
             orientation="right"
-          />
-          <ReferenceLine
-            y={openPrice}
-            stroke="grey"
-            strokeWidth={1}
-            strokeDasharray="1 3"
           />
           <Tooltip content={<CustomizedTooltip />} />
           <defs>
@@ -160,13 +154,20 @@ export function ImmunaChart({
             baseLine={1}
             activeDot={<CustomizedDot openPrice={openPrice} />}
           />
+          <ReferenceLine
+            y={openPrice}
+            stroke="grey"
+            strokeWidth={1}
+            strokeDasharray="1 3"
+            label={<CustomizedLabel value={openPrice} />}
+          />
           <Brush
             dataKey="t"
             height={30}
             stroke="#8884d8"
             onChange={handleBrushChange}
           />
-        </AreaChart>
+        </ComposedChart>
       </ResponsiveContainer>
     </div>
   );
