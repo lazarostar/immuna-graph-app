@@ -17,7 +17,6 @@ function App() {
       <select value={currency} onChange={handleChange}>
         <option value={1}>Bitcoin</option>
         <option value={1027}>Ethereum</option>
-        <option value={3408}>USDC</option>
       </select>
       <RangeSelect value={range} setValue={setRange} />
       <ImmunaChart currency={currency} range={range} />
