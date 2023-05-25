@@ -6,11 +6,21 @@ import { RangeSelect } from "./components/ImmunaChart/components/RangeSelect";
 
 function App() {
   const [range, setRange] = useState<RangeOption>(RangeOption["7D"]);
+  const [currency, setCurrency] = useState<number>(1);
+
+  const handleChange = (e: any) => {
+    setCurrency(Number(e.target.value));
+  };
 
   return (
     <Container>
+      <select value={currency} onChange={handleChange}>
+        <option value={1}>Bitcoin</option>
+        <option value={1027}>Ethereum</option>
+        <option value={3408}>USDC</option>
+      </select>
       <RangeSelect value={range} setValue={setRange} />
-      <ImmunaChart range={range} />
+      <ImmunaChart currency={currency} range={range} />
     </Container>
   );
 }

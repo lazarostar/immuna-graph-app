@@ -21,9 +21,11 @@ import { CustomizedTooltip } from "./components/CustomizedTooltip";
 import { CustomizedDot } from "./components/CustomizedDot";
 
 export function ImmunaChart({
+  currency = 1,
   range = RangeOption["7D"],
   className,
 }: {
+  currency?: number;
   range?: RangeOption;
   className?: string;
 }) {
@@ -31,7 +33,7 @@ export function ImmunaChart({
   const [endIndex, setEndIndex] = useState(-1);
 
   const { data, isLoading } = useChartData({
-    id: 1,
+    id: currency,
     range,
     onSuccess: (data) => {
       setStartIndex((prev) => (prev === -1 ? 0 : prev));
